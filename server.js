@@ -4,11 +4,36 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
+// Static trace references for @vercel/nft to ensure files are included in deployment bundle
+if (false) {
+  path.join(__dirname, 'index.html');
+  path.join(__dirname, 'about.html');
+  path.join(__dirname, 'enquiry.html');
+  path.join(__dirname, 'join-professional.html');
+  path.join(__dirname, 'client-login.html');
+  path.join(__dirname, 'professional-login.html');
+  path.join(__dirname, 'privacy.html');
+  path.join(__dirname, 'terms.html');
+  path.join(__dirname, 'support.html');
+  path.join(__dirname, 'work.html');
+  path.join(__dirname, 'insights.html');
+  path.join(__dirname, 'assets');
+  path.join(__dirname, '3d');
+  path.join(__dirname, 'fonts');
+  path.join(__dirname, 'patterns');
+  path.join(__dirname, 'avatars');
+  path.join(__dirname, 'images');
+  path.join(__dirname, 'services');
+  path.join(__dirname, 'story');
+  path.join(__dirname, 'mobile');
+  path.join(process.cwd(), 'index.html');
+}
+
 function getPublicDir() {
   const candidates = [
-    process.env.LAMBDA_TASK_ROOT,
     process.cwd(),
     __dirname,
+    process.env.LAMBDA_TASK_ROOT,
     path.join(__dirname, '..')
   ];
   for (const c of candidates) {
@@ -112,7 +137,7 @@ function requestHandler(req, res) {
   }
 
   res.writeHead(404, { 'Content-Type': 'text/plain' });
-  res.end(`Not Found: ${req.url} -> ${filePath} (PUBLIC_DIR: ${PUBLIC_DIR}) exists: ${fs.existsSync(filePath)}`);
+  res.end('Not Found');
 }
 
 function serveFile(filePath, res) {
