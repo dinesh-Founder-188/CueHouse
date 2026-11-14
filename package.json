@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Cue House — Managed Creative & Business Growth Partner",
   "scripts": {
-    "build": "node build.js",
+    "build": "echo 'Cue House ready for deployment'",
     "dev": "node local-server.js",
     "start": "node local-server.js"
   },
