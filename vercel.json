@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/3d/(.*)",
+      "source": "/3d/:path*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "source": "/fonts/(.*)",
+      "source": "/fonts/:path*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "source": "/assets/(.*)",
+      "source": "/assets/:path*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "source": "/patterns/(.*)",
+      "source": "/patterns/:path*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "source": "/avatars/(.*)",
+      "source": "/avatars/:path*",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "headers": [
         {
           "key": "X-Content-Type-Options",
