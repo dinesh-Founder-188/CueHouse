@@ -1,0 +1,6 @@
+node_modules
+dist
+pinterest_raw
+*.zip
+.gemini
+.vscode
