@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cue House — Handshake Animation Studio & Asset Catalog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --coral: #E0563F;
+      --coral-light: #FF7660;
+      --coral-bg: #FFF5F2;
+      --black: #0E0F12;
+      --gray-text: #6B7280;
+      --light-gray: #F8F9FA;
+      --border-color: #E5E7EB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #FFFFFF;
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    /* TOP BAR */
+    header {
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 38px; height: 38px; background: var(--black); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-family: 'Space Grotesk', sans-serif;
+    }
+    .brand-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; }
+    .badge {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 4px 12px; background: var(--coral-bg); color: var(--coral);
+      border-radius: 20px; border: 1px solid rgba(224, 86, 63, 0.25);
+    }
+    .btn-download-zip {
+      display: inline-flex; align-items: center; gap: 8px; background: var(--coral);
+      color: #ffffff; padding: 10px 22px; border-radius: 8px; font-weight: 700;
+      text-decoration: none; font-size: 14px; box-shadow: 0 4px 14px rgba(224, 86, 63, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-download-zip:hover { background: #c7432e; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      padding: 48px 40px 20px;
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--coral); }
+    .hero p { color: var(--gray-text); font-size: 16px; margin-bottom: 24px; }
+
+    /* CONTROLLER PANEL */
+    .controls-panel {
+      background: #FAFAFA;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px 24px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .controls-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .timeline-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .timeline-slider {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+      outline: none;
+      accent-color: var(--coral);
+      cursor: pointer;
+    }
+    .btn-play {
+      background: var(--black);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-play:hover { background: #333; }
+
+    /* INTERACTIVE STAGE */
+    .stage-wrapper {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .stage-card {
+      position: relative;
+      height: 600px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      background: radial-gradient(circle at center, #FFFFFF 60%, #F8F9FA 100%);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stage-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      z-index: 1;
+    }
+    .stage-shadow {
+      position: absolute;
+      bottom: 6%; left: 50%;
+      transform: translateX(-50%);
+      width: 55%;
+      z-index: 2;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .stage-trails {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      z-index: 3;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .stage-particles {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45%;
+      z-index: 3;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    /* HANDS */
+    .hand-layer {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55%;
+      max-width: 900px;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+      filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.08));
+      transition: all 0.1s linear;
+    }
+    .hand-left { left: 0; z-index: 5; }
+    .hand-right { right: 0; z-index: 4; }
+    .handshake-grip {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 1050px;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+      z-index: 6;
+      opacity: 0;
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.12));
+    }
+
+    /* BADGES ON STAGE */
+    .stage-badge {
+      position: absolute;
+      z-index: 10;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .stage-badge-left { left: 24px; bottom: 24px; color: #111; }
+    .stage-badge-right { right: 24px; bottom: 24px; color: var(--coral); border-color: rgba(224, 86, 63, 0.25); }
+
+    /* ASSET GALLERY */
+    .gallery-wrap {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--black);
+      padding-bottom: 16px;
+    }
+    .gallery-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; }
+    .cat-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 36px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cat-tag {
+      background: var(--light-gray);
+      border: 1px solid var(--border-color);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.07); border-color: var(--coral); }
+    .thumb {
+      aspect-ratio: 16/9;
+      background: repeating-conic-gradient(#f0f0f0 0% 25%, #ffffff 0% 50%) 50% / 14px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .thumb.square { aspect-ratio: 1/1; }
+    .thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .meta { padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; }
+    .desc { font-size: 12px; color: var(--gray-text); }
+    .btn-dl {
+      margin-top: 6px;
+      background: var(--light-gray);
+      color: var(--black);
+      border: 1px solid var(--border-color);
+      text-align: center;
+      padding: 7px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-dl:hover { background: var(--black); color: #fff; border-color: var(--black); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">CH</div>
+      <div>
+        <div class="brand-title">Cue House</div>
+        <div class="badge">Animation Studio</div>
+      </div>
+    </div>
+    <div>
+      <a href="/animations/handshake/cuehouse_handshake_asset_pack.zip" download class="btn-download-zip">
+        Download Asset Bundle (.ZIP 27.7MB)
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Scroll-Controlled <span>Handshake</span> Studio</h1>
+    <p>Real-time interactive scrub player and master catalog for all 37 high-resolution Cue House assets.</p>
+  </section>
+
+  <!-- CONTROLS & TIMELINE -->
+  <div class="controls-panel">
+    <div class="controls-top">
+      <span id="stateLabel">Stage 1: Approach (Left & Right Hands entering)</span>
+      <span id="percentLabel" style="color: var(--coral);">0%</span>
+    </div>
+    <div class="timeline-slider-row">
+      <button id="playBtn" class="btn-play">▶ Auto Play</button>
+      <input type="range" id="scrubber" class="timeline-slider" min="0" max="100" value="0" />
+    </div>
+  </div>
+
+  <!-- INTERACTIVE PLAYBACK STAGE -->
+  <div class="stage-wrapper">
+    <div class="stage-card">
+      <!-- 4K Flowing Ribbon Wave Background -->
+      <img class="stage-bg" src="/animations/handshake/backgrounds/BG_02.png" alt="Background Ribbon" />
+
+      <!-- Contact Shadow -->
+      <img id="shadowImg" class="stage-shadow" src="/animations/handshake/shadows/Shadow_04.png" alt="Shadow" />
+
+      <!-- Coral Motion Trails -->
+      <img id="trailImg" class="stage-trails" src="/animations/handshake/trails/Trail_05.png" alt="Motion Trails" />
+
+      <!-- Coral Particle Burst -->
+      <img id="particleImg" class="stage-particles" src="/animations/handshake/particles/Particle_03.png" alt="Particles" />
+
+      <!-- Left Hand (Person A: Tailored Black Wool Suit) -->
+      <img id="leftHandImg" class="hand-layer hand-left" src="/animations/handshake/left/Left_02.png" alt="Left Hand" />
+
+      <!-- Right Hand (Person B: Tailored Cream Wool Suit) -->
+      <img id="rightHandImg" class="hand-layer hand-right" src="/animations/handshake/right/Right_02.png" alt="Right Hand" />
+
+      <!-- Real Interlocking Handshake Grip -->
+      <img id="handshakeImg" class="handshake-grip" src="/animations/handshake/handshake/Handshake_04.png" alt="Handshake Grip" />
+
+      <!-- Badges -->
+      <div class="stage-badge stage-badge-left">Brands · The Vision</div>
+      <div class="stage-badge stage-badge-right">Creators · The Creativity</div>
+    </div>
+  </div>
+
+  <!-- COMPLETE ASSET CATALOG -->
+  <div class="gallery-wrap">
+    <div class="gallery-header">
+      <div>
+        <h2>Master Asset Catalog</h2>
+        <p style="color: var(--gray-text); font-size: 14px;">All 37 transparent PNG assets available for instant individual download.</p>
+      </div>
+      <div>
+        <a href="/animations/handshake/cuehouse_handshake_asset_pack.zip" download class="btn-download-zip" style="font-size: 13px; padding: 8px 16px;">
+          Download Everything (.ZIP)
+        </a>
+      </div>
+    </div>
+
+    <!-- 01 Left Hand -->
+    <div class="cat-title">
+      <span>01. Left Hand Sequence (Person A: Black Tailored Suit)</span>
+      <span class="cat-tag">5 Frames • 2048 × 1144 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/left/Left_01.png" alt="Left_01" /></div>
+        <div class="meta"><div class="name">Left_01.png</div><div class="desc">Entering extreme left</div><a href="/animations/handshake/left/Left_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/left/Left_02.png" alt="Left_02" /></div>
+        <div class="meta"><div class="name">Left_02.png</div><div class="desc">Moving toward center</div><a href="/animations/handshake/left/Left_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/left/Left_03.png" alt="Left_03" /></div>
+        <div class="meta"><div class="name">Left_03.png</div><div class="desc">Advancing closer</div><a href="/animations/handshake/left/Left_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/left/Left_04.png" alt="Left_04" /></div>
+        <div class="meta"><div class="name">Left_04.png</div><div class="desc">Handshake posture palm</div><a href="/animations/handshake/left/Left_04.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/left/Left_05.png" alt="Left_05" /></div>
+        <div class="meta"><div class="name">Left_05.png</div><div class="desc">Ready for contact</div><a href="/animations/handshake/left/Left_05.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 02 Right Hand -->
+    <div class="cat-title">
+      <span>02. Right Hand Sequence (Person B: Cream Tailored Suit)</span>
+      <span class="cat-tag">5 Frames • 2048 × 1144 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/right/Right_01.png" alt="Right_01" /></div>
+        <div class="meta"><div class="name">Right_01.png</div><div class="desc">Entering extreme right</div><a href="/animations/handshake/right/Right_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/right/Right_02.png" alt="Right_02" /></div>
+        <div class="meta"><div class="name">Right_02.png</div><div class="desc">Moving toward center</div><a href="/animations/handshake/right/Right_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/right/Right_03.png" alt="Right_03" /></div>
+        <div class="meta"><div class="name">Right_03.png</div><div class="desc">Advancing closer</div><a href="/animations/handshake/right/Right_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/right/Right_04.png" alt="Right_04" /></div>
+        <div class="meta"><div class="name">Right_04.png</div><div class="desc">Handshake posture palm</div><a href="/animations/handshake/right/Right_04.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/right/Right_05.png" alt="Right_05" /></div>
+        <div class="meta"><div class="name">Right_05.png</div><div class="desc">Ready for contact</div><a href="/animations/handshake/right/Right_05.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 03 Handshake Sequence -->
+    <div class="cat-title">
+      <span>03. Handshake Sequence (Contact -> Hold -> Release)</span>
+      <span class="cat-tag">5 Frames • 2048 × 1144 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/handshake/Handshake_01.png" alt="Handshake_01" /></div>
+        <div class="meta"><div class="name">Handshake_01.png</div><div class="desc">Hands approaching</div><a href="/animations/handshake/handshake/Handshake_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/handshake/Handshake_02.png" alt="Handshake_02" /></div>
+        <div class="meta"><div class="name">Handshake_02.png</div><div class="desc">Initial contact</div><a href="/animations/handshake/handshake/Handshake_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/handshake/Handshake_03.png" alt="Handshake_03" /></div>
+        <div class="meta"><div class="name">Handshake_03.png</div><div class="desc">Firm handshake locked</div><a href="/animations/handshake/handshake/Handshake_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/handshake/Handshake_04.png" alt="Handshake_04" /></div>
+        <div class="meta"><div class="name">Handshake_04.png</div><div class="desc">Solid hold</div><a href="/animations/handshake/handshake/Handshake_04.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/handshake/Handshake_05.png" alt="Handshake_05" /></div>
+        <div class="meta"><div class="name">Handshake_05.png</div><div class="desc">Slight release motion</div><a href="/animations/handshake/handshake/Handshake_05.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 04 Macro Details -->
+    <div class="cat-title">
+      <span>04. Close-Up Cinematic Details</span>
+      <span class="cat-tag">3 Frames • 2048 × 1144 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/details/Closeup_01.png" alt="Closeup_01" /></div>
+        <div class="meta"><div class="name">Closeup_01.png</div><div class="desc">Black suit & cufflink</div><a href="/animations/handshake/details/Closeup_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/details/Closeup_02.png" alt="Closeup_02" /></div>
+        <div class="meta"><div class="name">Closeup_02.png</div><div class="desc">Handshake grip macro</div><a href="/animations/handshake/details/Closeup_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/details/Closeup_03.png" alt="Closeup_03" /></div>
+        <div class="meta"><div class="name">Closeup_03.png</div><div class="desc">Cream suit & cuff</div><a href="/animations/handshake/details/Closeup_03.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 05 Motion Trails -->
+    <div class="cat-title">
+      <span>05. Motion Trails (Coral & Charcoal Abstract Curves)</span>
+      <span class="cat-tag">5 Assets • 2048 × 2048 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/trails/Trail_01.png" alt="Trail_01" /></div>
+        <div class="meta"><div class="name">Trail_01.png</div><div class="desc">Rising coral wave</div><a href="/animations/handshake/trails/Trail_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/trails/Trail_02.png" alt="Trail_02" /></div>
+        <div class="meta"><div class="name">Trail_02.png</div><div class="desc">Dual coral & black ribbons</div><a href="/animations/handshake/trails/Trail_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/trails/Trail_03.png" alt="Trail_03" /></div>
+        <div class="meta"><div class="name">Trail_03.png</div><div class="desc">Parabolic fan filaments</div><a href="/animations/handshake/trails/Trail_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/trails/Trail_04.png" alt="Trail_04" /></div>
+        <div class="meta"><div class="name">Trail_04.png</div><div class="desc">Intersecting swoop</div><a href="/animations/handshake/trails/Trail_04.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/trails/Trail_05.png" alt="Trail_05" /></div>
+        <div class="meta"><div class="name">Trail_05.png</div><div class="desc">Aerodynamic wave band</div><a href="/animations/handshake/trails/Trail_05.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 06 Particles -->
+    <div class="cat-title">
+      <span>06. Particle Elements (Subtle Coral Accents)</span>
+      <span class="cat-tag">5 Assets • 2048 × 2048 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/particles/Particle_01.png" alt="Particle_01" /></div>
+        <div class="meta"><div class="name">Particle_01.png</div><div class="desc">Drifting fine mist</div><a href="/animations/handshake/particles/Particle_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/particles/Particle_02.png" alt="Particle_02" /></div>
+        <div class="meta"><div class="name">Particle_02.png</div><div class="desc">Central micro-burst</div><a href="/animations/handshake/particles/Particle_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/particles/Particle_03.png" alt="Particle_03" /></div>
+        <div class="meta"><div class="name">Particle_03.png</div><div class="desc">Floating bokeh sparks</div><a href="/animations/handshake/particles/Particle_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/particles/Particle_04.png" alt="Particle_04" /></div>
+        <div class="meta"><div class="name">Particle_04.png</div><div class="desc">Radial energy bloom</div><a href="/animations/handshake/particles/Particle_04.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/particles/Particle_05.png" alt="Particle_05" /></div>
+        <div class="meta"><div class="name">Particle_05.png</div><div class="desc">Atmospheric embers</div><a href="/animations/handshake/particles/Particle_05.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 07 Shadows -->
+    <div class="cat-title">
+      <span>07. Soft Contact Shadows</span>
+      <span class="cat-tag">4 Assets • 2048 × 2048 • Transparent PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/shadows/Shadow_01.png" alt="Shadow_01" /></div>
+        <div class="meta"><div class="name">Shadow_01.png</div><div class="desc">Elongated entry shadow</div><a href="/animations/handshake/shadows/Shadow_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/shadows/Shadow_02.png" alt="Shadow_02" /></div>
+        <div class="meta"><div class="name">Shadow_02.png</div><div class="desc">Diffused ground shadow</div><a href="/animations/handshake/shadows/Shadow_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/shadows/Shadow_03.png" alt="Shadow_03" /></div>
+        <div class="meta"><div class="name">Shadow_03.png</div><div class="desc">Ambient occlusion pool</div><a href="/animations/handshake/shadows/Shadow_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb square"><img src="/animations/handshake/shadows/Shadow_04.png" alt="Shadow_04" /></div>
+        <div class="meta"><div class="name">Shadow_04.png</div><div class="desc">Full handshake footprint</div><a href="/animations/handshake/shadows/Shadow_04.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+
+    <!-- 08 Backgrounds -->
+    <div class="cat-title">
+      <span>08. Minimalist Flowing 4K Ribbon Backgrounds</span>
+      <span class="cat-tag">5 Assets • 3840 × 2160 • PNG</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/backgrounds/BG_01.png" alt="BG_01" /></div>
+        <div class="meta"><div class="name">BG_01.png</div><div class="desc">Flowing coral ribbon wave</div><a href="/animations/handshake/backgrounds/BG_01.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/backgrounds/BG_02.png" alt="BG_02" /></div>
+        <div class="meta"><div class="name">BG_02.png</div><div class="desc">Dual coral & black ribbons</div><a href="/animations/handshake/backgrounds/BG_02.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/backgrounds/BG_03.png" alt="BG_03" /></div>
+        <div class="meta"><div class="name">BG_03.png</div><div class="desc">Cresting black & coral wave</div><a href="/animations/handshake/backgrounds/BG_03.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/backgrounds/BG_04.png" alt="BG_04" /></div>
+        <div class="meta"><div class="name">BG_04.png</div><div class="desc">Double-crest ribbon</div><a href="/animations/handshake/backgrounds/BG_04.png" download class="btn-dl">Download</a></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="/animations/handshake/backgrounds/BG_05.png" alt="BG_05" /></div>
+        <div class="meta"><div class="name">BG_05.png</div><div class="desc">Modern diagonal arc</div><a href="/animations/handshake/backgrounds/BG_05.png" download class="btn-dl">Download</a></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scrubber = document.getElementById('scrubber');
+    const stateLabel = document.getElementById('stateLabel');
+    const percentLabel = document.getElementById('percentLabel');
+    const playBtn = document.getElementById('playBtn');
+
+    const leftHand = document.getElementById('leftHandImg');
+    const rightHand = document.getElementById('rightHandImg');
+    const handshake = document.getElementById('handshakeImg');
+    const shadow = document.getElementById('shadowImg');
+    const trail = document.getElementById('trailImg');
+    const particle = document.getElementById('particleImg');
+
+    let isPlaying = false;
+    let animTimer = null;
+
+    function updateStage(p) {
+      percentLabel.innerText = Math.round(p * 100) + '%';
+
+      if (p <= 0.45) {
+        // Stage 1: Approach
+        stateLabel.innerText = 'Stage 1: Approach (Hands entering from left & right)';
+        
+        // Progressive frames
+        if (p < 0.18) {
+          leftHand.src = '/animations/handshake/left/Left_02.png';
+          rightHand.src = '/animations/handshake/right/Right_02.png';
+        } else if (p < 0.35) {
+          leftHand.src = '/animations/handshake/left/Left_04.png';
+          rightHand.src = '/animations/handshake/right/Right_04.png';
+        } else {
+          leftHand.src = '/animations/handshake/left/Left_05.png';
+          rightHand.src = '/animations/handshake/right/Right_05.png';
+        }
+
+        // Translation inwards
+        const t = p / 0.45;
+        const leftX = -25 * (1 - t);
+        const rightX = 25 * (1 - t);
+        leftHand.style.transform = `translate(${leftX}%, -50%)`;
+        rightHand.style.transform = `translate(${rightX}%, -50%)`;
+        leftHand.style.opacity = '1';
+        rightHand.style.opacity = '1';
+        handshake.style.opacity = '0';
+        trail.style.opacity = '0';
+        particle.style.opacity = '0';
+        shadow.style.opacity = '0.75';
+      } else if (p <= 0.85) {
+        // Stage 2: Handshake Hold & Impact
+        stateLabel.innerText = 'Stage 2: Firm Handshake Lock (Where Brands Meet Creators)';
+        leftHand.style.opacity = '0';
+        rightHand.style.opacity = '0';
+        handshake.style.opacity = '1';
+
+        if (p < 0.6) {
+          handshake.src = '/animations/handshake/handshake/Handshake_02.png';
+          trail.style.opacity = '0.85';
+          particle.style.opacity = '0.75';
+        } else {
+          handshake.src = '/animations/handshake/handshake/Handshake_04.png';
+          trail.style.opacity = '0.35';
+          particle.style.opacity = '0.3';
+        }
+        shadow.style.opacity = '1';
+      } else {
+        // Stage 3: Release & Transition
+        stateLabel.innerText = 'Stage 3: Handshake Release & Transition';
+        handshake.src = '/animations/handshake/handshake/Handshake_05.png';
+        handshake.style.opacity = (1 - (p - 0.85) * 4).toString();
+        leftHand.style.opacity = '0';
+        rightHand.style.opacity = '0';
+        trail.style.opacity = '0';
+        particle.style.opacity = '0';
+        shadow.style.opacity = (1 - (p - 0.85) * 3).toString();
+      }
+    }
+
+    scrubber.addEventListener('input', (e) => {
+      if (isPlaying) stopPlay();
+      updateStage(e.target.value / 100);
+    });
+
+    function startPlay() {
+      isPlaying = true;
+      playBtn.innerText = '⏸ Pause';
+      animTimer = setInterval(() => {
+        let v = parseInt(scrubber.value, 10) + 1;
+        if (v > 100) v = 0;
+        scrubber.value = v;
+        updateStage(v / 100);
+      }, 40);
+    }
+
+    function stopPlay() {
+      isPlaying = false;
+      playBtn.innerText = '▶ Auto Play';
+      clearInterval(animTimer);
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (isPlaying) stopPlay();
+      else startPlay();
+    });
+
+    // Initial draw
+    updateStage(0);
+  </script>
+</body>
+</html>

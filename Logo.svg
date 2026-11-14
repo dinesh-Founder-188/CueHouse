@@ -1,0 +1,18 @@
+<svg viewBox="0 0 320 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cue House Architectural Interlocking Mark -->
+  <g id="mark" transform="translate(6, 6)">
+    <!-- Base frame -->
+    <rect x="0" y="0" width="30" height="30" rx="3" fill="#17201D" />
+    <rect x="4" y="4" width="22" height="22" rx="1.5" fill="#FAFAFA" />
+    <!-- Overlapping frame -->
+    <rect x="14" y="14" width="30" height="30" rx="3" fill="#E0563F" />
+    <rect x="18" y="18" width="22" height="22" rx="1.5" fill="#FAFAFA" />
+    <!-- Center synergistic junction -->
+    <rect x="14" y="14" width="16" height="16" fill="#17201D" />
+  </g>
+  
+  <!-- Cue House Typography -->
+  <text x="68" y="38" font-family="'Plus Jakarta Sans', 'Space Grotesk', -apple-system, sans-serif" font-weight="800" font-size="28" letter-spacing="-0.03em" fill="#17201D">CUE</text>
+  <text x="135" y="38" font-family="'Plus Jakarta Sans', 'Space Grotesk', -apple-system, sans-serif" font-weight="400" font-size="28" letter-spacing="-0.01em" fill="#17201D">HOUSE</text>
+  <circle cx="258" cy="35" r="4.5" fill="#E0563F" />
+</svg>

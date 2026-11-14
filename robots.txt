@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /$
+Disallow: /admin
+Disallow: /demo
+Disallow: /q/
+Disallow: /home
+Disallow: /hometest
+Disallow: /vine
+Disallow: /vine-garden
+Disallow: /totem-lab
+Disallow: /totems
+Disallow: /stats
+Disallow: /guilds
+Disallow: /light-lab
+Disallow: /warp
+Disallow: /spiral
+Disallow: /spiral-gl
+
+Sitemap: https://grail-app.com/sitemap.xml

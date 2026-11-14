@@ -1,0 +1,5 @@
+pinterest_raw/
+*.zip
+.git
+.vscode
+.gemini
