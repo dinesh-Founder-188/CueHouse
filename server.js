@@ -4,19 +4,35 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
-// Static trace references for @vercel/nft to ensure files are included in deployment bundle
+// Static AST triggers for @vercel/nft to bundle all files and directories into the serverless deployment
 if (false) {
-  path.join(__dirname, 'index.html');
-  path.join(__dirname, 'about.html');
-  path.join(__dirname, 'enquiry.html');
-  path.join(__dirname, 'join-professional.html');
-  path.join(__dirname, 'client-login.html');
-  path.join(__dirname, 'professional-login.html');
-  path.join(__dirname, 'privacy.html');
-  path.join(__dirname, 'terms.html');
-  path.join(__dirname, 'support.html');
-  path.join(__dirname, 'work.html');
-  path.join(__dirname, 'insights.html');
+  fs.readFileSync(path.join(__dirname, 'Logo.svg'));
+  fs.readFileSync(path.join(__dirname, 'Fav.svg'));
+  fs.readFileSync(path.join(__dirname, 'Fav.png'));
+  fs.readFileSync(path.join(__dirname, 'OG.png'));
+  fs.readFileSync(path.join(__dirname, 'accept-phone.webp'));
+  fs.readFileSync(path.join(__dirname, 'arrow.svg'));
+  fs.readFileSync(path.join(__dirname, 'guild-crest.svg'));
+  fs.readFileSync(path.join(__dirname, 'grail-mark.svg'));
+  fs.readFileSync(path.join(__dirname, 'loader-mark.svg'));
+  fs.readFileSync(path.join(__dirname, 'handshake.jpg'));
+  fs.readFileSync(path.join(__dirname, 'icons.svg'));
+  fs.readFileSync(path.join(__dirname, 'favicon.svg'));
+  fs.readFileSync(path.join(__dirname, 'robots.txt'));
+  fs.readFileSync(path.join(__dirname, 'sitemap.xml'));
+  fs.readFileSync(path.join(__dirname, 'index.html'));
+  fs.readFileSync(path.join(__dirname, 'about.html'));
+  fs.readFileSync(path.join(__dirname, 'enquiry.html'));
+  fs.readFileSync(path.join(__dirname, 'join-professional.html'));
+  fs.readFileSync(path.join(__dirname, 'client-login.html'));
+  fs.readFileSync(path.join(__dirname, 'professional-login.html'));
+  fs.readFileSync(path.join(__dirname, 'privacy.html'));
+  fs.readFileSync(path.join(__dirname, 'terms.html'));
+  fs.readFileSync(path.join(__dirname, 'support.html'));
+  fs.readFileSync(path.join(__dirname, 'work.html'));
+  fs.readFileSync(path.join(__dirname, 'insights.html'));
+
+  // Directory triggers for NFT tracer
   path.join(__dirname, 'assets');
   path.join(__dirname, '3d');
   path.join(__dirname, 'fonts');
@@ -26,7 +42,6 @@ if (false) {
   path.join(__dirname, 'services');
   path.join(__dirname, 'story');
   path.join(__dirname, 'mobile');
-  path.join(process.cwd(), 'index.html');
 }
 
 function getPublicDir() {
@@ -94,6 +109,17 @@ const routeMap = {
   '/support': 'support.html'
 };
 
+function resolveFile(targetRelative) {
+  const searchRoots = [PUBLIC_DIR, process.cwd(), __dirname, process.env.LAMBDA_TASK_ROOT].filter(Boolean);
+  for (const root of searchRoots) {
+    const candidate = path.join(root, targetRelative);
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+      return candidate;
+    }
+  }
+  return null;
+}
+
 function requestHandler(req, res) {
   // Parse URL and strip query parameters
   const rawPath = req.url.split('?')[0];
@@ -104,35 +130,21 @@ function requestHandler(req, res) {
     targetRelative = cleanUrl.replace(/^\//, '');
   }
 
-  let filePath = path.join(PUBLIC_DIR, targetRelative);
-
-  // Security check: prevent directory traversal
-  if (!filePath.startsWith(PUBLIC_DIR)) {
-    res.writeHead(403);
-    return res.end('Forbidden');
+  // 1. Direct file match or html alias
+  const directMatch = resolveFile(targetRelative) || resolveFile(targetRelative + '.html');
+  if (directMatch) {
+    return serveFile(directMatch, res);
   }
 
-  // 1. Direct file match
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-    return serveFile(filePath, res);
+  // 2. Directory with index.html
+  const indexInDir = resolveFile(path.join(targetRelative, 'index.html'));
+  if (indexInDir) {
+    return serveFile(indexInDir, res);
   }
 
-  // 2. Direct file match with .html
-  if (fs.existsSync(filePath + '.html') && fs.statSync(filePath + '.html').isFile()) {
-    return serveFile(filePath + '.html', res);
-  }
-
-  // 3. Directory with index.html
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
-    const indexPath = path.join(filePath, 'index.html');
-    if (fs.existsSync(indexPath) && fs.statSync(indexPath).isFile()) {
-      return serveFile(indexPath, res);
-    }
-  }
-
-  // 4. SPA Fallback: serve index.html
-  const fallbackIndex = path.join(PUBLIC_DIR, 'index.html');
-  if (fs.existsSync(fallbackIndex)) {
+  // 3. SPA Fallback: serve index.html
+  const fallbackIndex = resolveFile('index.html');
+  if (fallbackIndex) {
     return serveFile(fallbackIndex, res);
   }
 
@@ -150,7 +162,8 @@ function serveFile(filePath, res) {
       return res.end('Server Error');
     }
 
-    const isImmutable = /^\/assets\/|^\/3d\/|^\/fonts\//.test(filePath.replace(PUBLIC_DIR, '').replace(/\\/g, '/'));
+    const relPath = filePath.replace(/\\/g, '/');
+    const isImmutable = /\/(assets|3d|fonts)\//i.test(relPath);
     const cacheControl = isImmutable
       ? 'public, max-age=31536000, immutable'
       : 'no-cache, no-store, must-revalidate';
