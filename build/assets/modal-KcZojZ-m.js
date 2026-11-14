@@ -1,0 +1,1 @@
+import{V as o}from"./vendor-venobox-BDbdDK2y.js";function n(){new o,document.querySelectorAll(".venobox").forEach(e=>{e.addEventListener("click",()=>{setTimeout(()=>{document.querySelector(".vbox-overlay").setAttribute("data-lenis-prevent","")},100)})})}export{n as Modals};

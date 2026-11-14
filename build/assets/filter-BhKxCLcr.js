@@ -1,0 +1,1 @@
+import{g as t,S as r}from"./vendor-gsap-Bus_UFKE.js";t.registerPlugin(r);function l(){document.querySelectorAll(".filterSidebar--fixed").forEach(e=>{const i=e.closest(".filterSidebar--fixed-container");t.matchMedia().add("(max-width: 1199px)",()=>{r.create({trigger:i,start:"top 25%",end:"bottom top",toggleClass:{targets:e,className:"is-active"}})})})}export{l as Filters};

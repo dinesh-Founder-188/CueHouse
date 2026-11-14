@@ -1,0 +1,46 @@
+/* Cue House Shared Footer Styles */
+.ch-shared-footer {
+  background: #111827;
+  color: #9ca3af;
+  padding: 60px 40px 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ch-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.ch-footer-brand {
+  margin-bottom: 30px;
+}
+.ch-footer-logo {
+  height: 28px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+.ch-footer-tagline {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #9ca3af;
+}
+.ch-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+.ch-footer-nav a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+.ch-footer-nav a:hover {
+  color: #ffffff;
+}
+.ch-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 24px;
+  font-size: 13px;
+  color: #6b7280;
+}

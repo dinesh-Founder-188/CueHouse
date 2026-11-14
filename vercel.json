@@ -4,6 +4,22 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/home/index.html"
+    },
+    {
+      "source": "/work",
+      "destination": "/work/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about/index.html"
+    },
+    {
       "source": "/services",
       "destination": "/services/index.html"
     },
