@@ -74,6 +74,23 @@ function requestHandler(req, res) {
   const rawPath = req.url.split('?')[0];
   const cleanUrl = decodeURIComponent(rawPath).replace(/\/$/, '') || '/';
 
+  if (cleanUrl === '/api/debug-fs') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    try {
+      const info = {
+        cwd: process.cwd(),
+        dirname: __dirname,
+        lambdaTaskRoot: process.env.LAMBDA_TASK_ROOT,
+        cwdFiles: fs.readdirSync(process.cwd()),
+        dirnameFiles: fs.readdirSync(__dirname),
+        assetsInCwd: fs.existsSync(path.join(process.cwd(), 'assets')) ? fs.readdirSync(path.join(process.cwd(), 'assets')).slice(0, 5) : false
+      };
+      return res.end(JSON.stringify(info, null, 2));
+    } catch (e) {
+      return res.end(JSON.stringify({ error: e.message }));
+    }
+  }
+
   let targetRelative = routeMap[cleanUrl];
   if (!targetRelative) {
     targetRelative = cleanUrl.replace(/^\//, '');
