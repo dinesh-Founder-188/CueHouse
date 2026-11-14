@@ -257,23 +257,95 @@ html, body, * {
 }
 
 
+/* Cue House Hero Side Points */
+.ch-hero-side {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-38%) !important;
+  z-index: 6 !important;
+  width: 250px !important;
+  max-width: 20vw !important;
+  pointer-events: auto !important;
+  user-select: none !important;
+}
 
-/* Cue House Hero Headline Layout & Line Sizing */
+.ch-hero-side-left {
+  left: clamp(24px, 3.8vw, 64px) !important;
+  text-align: left !important;
+}
+
+.ch-hero-side-right {
+  right: clamp(24px, 3.8vw, 64px) !important;
+  text-align: right !important;
+}
+
+.ch-side-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-sans), sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: #638a5d !important;
+  margin-bottom: 22px !important;
+}
+
+.ch-side-item {
+  margin-bottom: 20px !important;
+  position: relative !important;
+}
+
+.ch-hero-side-left .ch-side-item {
+  border-left: 2px solid rgba(99, 138, 93, 0.45) !important;
+  padding-left: 14px !important;
+}
+
+.ch-hero-side-right .ch-side-item {
+  border-right: 2px solid rgba(99, 138, 93, 0.45) !important;
+  padding-right: 14px !important;
+}
+
+.ch-side-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-sans), sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 4px !important;
+}
+
+.ch-side-desc {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-sans), sans-serif !important;
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
+  color: rgba(255, 255, 255, 0.58) !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 1200px) {
+  .ch-hero-side {
+    display: none !important;
+  }
+}
+
+/* Cue House Hero Headline Layout & Line Sizing (Enlarged) */
 ._headline_bwga5_473 {
   z-index: 4 !important;
   color: #ffffff !important;
   width: 100% !important;
   max-width: 96vw !important;
-  margin: 16px auto 0 !important;
+  margin: 18px auto 0 !important;
   font-family: "PP Pangaia", var(--font-serif), Georgia, serif !important;
   text-transform: uppercase !important;
   letter-spacing: -0.01em !important;
   text-align: center !important;
   white-space: nowrap !important;
-  line-height: 1.15 !important;
+  line-height: 1.12 !important;
   pointer-events: none !important;
   position: relative !important;
-  font-size: clamp(18px, 3.1vw, 42px) !important;
+  font-size: clamp(24px, 4.1vw, 56px) !important;
   font-weight: 300 !important;
 }
 
@@ -290,29 +362,31 @@ html, body, * {
   font-weight: 300 !important;
   letter-spacing: -0.01em !important;
   opacity: 1 !important;
+  line-height: 1.1 !important;
 }
 
 /* Line 2: BUILT FOR BRANDS & CREATORS. */
 ._headline_bwga5_473 > span:nth-child(2) {
-  font-size: 0.82em !important;
+  font-size: 0.76em !important;
   font-weight: 300 !important;
   letter-spacing: 0.02em !important;
   opacity: 0.88 !important;
-  margin-top: 6px !important;
+  margin-top: 8px !important;
+  line-height: 1.12 !important;
 }
 
 @media (max-width: 768px) {
   ._headline_bwga5_473 {
     margin: 12px auto 0 !important;
-    font-size: clamp(14px, 4.4vw, 22px) !important;
-    line-height: 1.18 !important;
+    font-size: clamp(16px, 4.8vw, 24px) !important;
+    line-height: 1.16 !important;
     white-space: nowrap !important;
   }
   ._headline_bwga5_473 > span {
     white-space: nowrap !important;
   }
   ._headline_bwga5_473 > span:nth-child(2) {
-    font-size: 0.85em !important;
+    font-size: 0.82em !important;
     margin-top: 4px !important;
   }
 }

@@ -102,6 +102,7 @@ const routeMap = {
   '/insights': 'insights.html',
   '/enquiry': 'enquiry.html',
   '/discuss-project': 'enquiry.html',
+  '/join': 'join-professional.html',
   '/join-professional': 'join-professional.html',
   '/join-creator': 'join-professional.html',
   '/client/login': 'client-login.html',

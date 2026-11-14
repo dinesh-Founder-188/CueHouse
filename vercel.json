@@ -52,7 +52,19 @@
       "destination": "/enquiry.html"
     },
     {
+      "source": "/enquiry",
+      "destination": "/enquiry.html"
+    },
+    {
+      "source": "/join",
+      "destination": "/join-professional.html"
+    },
+    {
       "source": "/join-creator",
+      "destination": "/join-professional.html"
+    },
+    {
+      "source": "/join-professional",
       "destination": "/join-professional.html"
     },
     {
@@ -60,8 +72,32 @@
       "destination": "/client-login.html"
     },
     {
+      "source": "/client-login",
+      "destination": "/client-login.html"
+    },
+    {
       "source": "/professional/login",
       "destination": "/professional-login.html"
+    },
+    {
+      "source": "/professional-login",
+      "destination": "/professional-login.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/support",
+      "destination": "/support.html"
+    },
+    {
+      "source": "/insights",
+      "destination": "/insights.html"
     }
   ],
   "headers": [
