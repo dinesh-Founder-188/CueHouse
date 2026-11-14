@@ -112,7 +112,7 @@ function requestHandler(req, res) {
   }
 
   res.writeHead(404, { 'Content-Type': 'text/plain' });
-  res.end('Not Found');
+  res.end(`Not Found: ${req.url} -> ${filePath} (PUBLIC_DIR: ${PUBLIC_DIR}) exists: ${fs.existsSync(filePath)}`);
 }
 
 function serveFile(filePath, res) {
