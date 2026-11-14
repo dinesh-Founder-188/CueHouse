@@ -2,10 +2,11 @@
   "name": "cue-house",
   "version": "1.0.0",
   "description": "Cue House — Managed Creative & Business Growth Partner",
+  "main": "server.js",
   "scripts": {
-    "build": "echo 'Cue House ready for deployment'",
-    "dev": "node local-server.js",
-    "start": "node local-server.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Cue House ready for deployment'"
   },
   "keywords": [
     "cue-house",

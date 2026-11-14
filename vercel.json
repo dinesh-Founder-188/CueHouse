@@ -1,135 +1,32 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/services",
-      "destination": "/services/index.html"
-    },
-    {
-      "source": "/services/marketing-growth",
-      "destination": "/services/marketing-growth.html"
-    },
-    {
-      "source": "/services/technology-development",
-      "destination": "/services/technology-development.html"
-    },
-    {
-      "source": "/services/creative-production",
-      "destination": "/services/creative-production.html"
-    },
-    {
-      "source": "/services/sales-business-development",
-      "destination": "/services/sales-business-development.html"
-    },
-    {
-      "source": "/services/influencer-creator-marketing",
-      "destination": "/services/influencer-creator-marketing.html"
-    },
-    {
-      "source": "/services/business-support",
-      "destination": "/services/business-support.html"
-    },
-    {
-      "source": "/discuss-project",
-      "destination": "/enquiry.html"
-    },
-    {
-      "source": "/join-creator",
-      "destination": "/join-professional.html"
-    },
-    {
-      "source": "/client/login",
-      "destination": "/client-login.html"
-    },
-    {
-      "source": "/professional/login",
-      "destination": "/professional-login.html"
+  "functions": {
+    "server.js": {
+      "includeFiles": [
+        "assets/**",
+        "3d/**",
+        "avatars/**",
+        "fonts/**",
+        "images/**",
+        "mobile/**",
+        "patterns/**",
+        "services/**",
+        "story/**",
+        "*.html",
+        "*.svg",
+        "*.png",
+        "*.jpg",
+        "*.webp",
+        "*.ico",
+        "*.txt",
+        "*.xml"
+      ]
     }
-  ],
-  "headers": [
+  },
+  "routes": [
     {
-      "source": "/3d/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/fonts/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/patterns/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
-      "source": "/avatars/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
+      "src": "/(.*)",
+      "dest": "/server.js"
     }
   ]
 }
