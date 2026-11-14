@@ -1,5 +1,28 @@
 {
   "version": 2,
+  "functions": {
+    "server.js": {
+      "includeFiles": [
+        "assets/**",
+        "3d/**",
+        "avatars/**",
+        "fonts/**",
+        "images/**",
+        "mobile/**",
+        "patterns/**",
+        "services/**",
+        "story/**",
+        "*.html",
+        "*.svg",
+        "*.png",
+        "*.jpg",
+        "*.webp",
+        "*.ico",
+        "*.txt",
+        "*.xml"
+      ]
+    }
+  },
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
