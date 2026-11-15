@@ -22,7 +22,10 @@ if (false) {
   fs.readFileSync(path.join(__dirname, 'robots.txt'));
   fs.readFileSync(path.join(__dirname, 'sitemap.xml'));
   fs.readFileSync(path.join(__dirname, 'index.html'));
-  fs.readFileSync(path.join(__dirname, 'about.html'));
+  fs.readFileSync(path.join(__dirname, 'home', 'index.html'));
+  fs.readFileSync(path.join(__dirname, 'work', 'index.html'));
+  fs.readFileSync(path.join(__dirname, 'about', 'index.html'));
+  fs.readFileSync(path.join(__dirname, 'services', 'index.html'));
   fs.readFileSync(path.join(__dirname, 'enquiry.html'));
   fs.readFileSync(path.join(__dirname, 'join-professional.html'));
   fs.readFileSync(path.join(__dirname, 'client-login.html'));
@@ -30,17 +33,21 @@ if (false) {
   fs.readFileSync(path.join(__dirname, 'privacy.html'));
   fs.readFileSync(path.join(__dirname, 'terms.html'));
   fs.readFileSync(path.join(__dirname, 'support.html'));
-  fs.readFileSync(path.join(__dirname, 'work.html'));
   fs.readFileSync(path.join(__dirname, 'insights.html'));
 
   // Directory triggers for NFT tracer
+  path.join(__dirname, 'home');
+  path.join(__dirname, 'work');
+  path.join(__dirname, 'about');
+  path.join(__dirname, 'services');
+  path.join(__dirname, 'build');
+  path.join(__dirname, 'build', 'assets');
   path.join(__dirname, 'assets');
   path.join(__dirname, '3d');
   path.join(__dirname, 'fonts');
   path.join(__dirname, 'patterns');
   path.join(__dirname, 'avatars');
   path.join(__dirname, 'images');
-  path.join(__dirname, 'services');
   path.join(__dirname, 'story');
   path.join(__dirname, 'mobile');
 }
