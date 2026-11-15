@@ -169,9 +169,7 @@
   pointer-events: none !important;
 }
 
-/* Ensure section colontitles clear the fixed header */
-._colontitle_1ghgf_1,
-._colontitle_1pamk_160,
+/* Ensure Chapter 02 colontitle clears the fixed header in the hero */
 ._s4colontitle_bwga5_290 {
   top: 82px !important;
   z-index: 99 !important;
@@ -183,11 +181,39 @@
   z-index: 98 !important;
 }
 
-/* Ensure section topbars clear the fixed header */
+/* Reset standard section colontitles (Chapters 03, 04, 05, 06) and topbars to avoid overlapping section content */
+._colontitle_1ghgf_1,
+._colontitle_1pamk_160,
 ._topbar_194d4_18,
 ._topbar_jyv7u_20 {
-  top: 82px !important;
-  z-index: 99 !important;
+  top: 25px !important;
+}
+@media (max-width: 768px) {
+  ._colontitle_1ghgf_1,
+  ._colontitle_1pamk_160,
+  ._topbar_194d4_18,
+  ._topbar_jyv7u_20 {
+    top: max(25px, env(safe-area-inset-top)) !important;
+  }
+}
+
+/* Ensure Chapter 03 inner container has clear top margin so heading never collides with colontitle */
+@media (max-width: 768px) {
+  ._s5inner_bwga5_696 {
+    padding-top: 64px !important;
+  }
+}
+
+/* Ensure Chapter 05 (Totem) topbar has clean separation below colontitle on desktop */
+@media (min-width: 769px) {
+  ._topbar_1pamk_164 {
+    top: 56px !important;
+  }
+}
+
+/* Ensure Chapter 06 (Stats) heading has clean clearance below colontitle */
+._head_10nox_66 {
+  top: clamp(58px, 8vh, 88px) !important;
 }
 
 @media (max-width: 820px) {
@@ -389,4 +415,14 @@ html, body, * {
     font-size: 0.82em !important;
     margin-top: 4px !important;
   }
+}
+
+
+/* Suppress cookie acceptance banners across all viewports */
+[class*="cookie" i],
+[id*="cookie" i],
+[aria-label*="cookie" i],
+[fs-cc="banner"],
+[fs-cc="preferences"] {
+  display: none !important;
 }

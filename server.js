@@ -25,6 +25,8 @@ if (false) {
   fs.readFileSync(path.join(__dirname, 'home', 'index.html'));
   fs.readFileSync(path.join(__dirname, 'work', 'index.html'));
   fs.readFileSync(path.join(__dirname, 'about', 'index.html'));
+  fs.readFileSync(path.join(__dirname, 'assets', 'framer', 'script_main.mjs'));
+  fs.readFileSync(path.join(__dirname, 'assets', 'framer', 'about-page.mjs'));
   fs.readFileSync(path.join(__dirname, 'services', 'index.html'));
   fs.readFileSync(path.join(__dirname, 'enquiry.html'));
   fs.readFileSync(path.join(__dirname, 'join-professional.html'));
@@ -43,6 +45,7 @@ if (false) {
   path.join(__dirname, 'build');
   path.join(__dirname, 'build', 'assets');
   path.join(__dirname, 'assets');
+  path.join(__dirname, 'assets', 'framer');
   path.join(__dirname, '3d');
   path.join(__dirname, 'fonts');
   path.join(__dirname, 'patterns');
@@ -88,6 +91,8 @@ const MIME_TYPES = {
   '.glb': 'model/gltf-binary',
   '.gltf': 'model/gltf+json',
   '.bin': 'application/octet-stream',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
   '.txt': 'text/plain; charset=utf-8',
   '.xml': 'application/xml; charset=utf-8'
 };

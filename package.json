@@ -15,5 +15,9 @@
     "shaders"
   ],
   "author": "Cue House",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
 }
